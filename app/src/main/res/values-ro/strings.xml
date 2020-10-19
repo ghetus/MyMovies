@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My movies</string>
+    <string name="movie_s_poster">Posterul filmului</string>
+    <string name="top_rating">Top note</string>
+    <string name="top_popularity">Populare</string>
+    <string name="item_main">Acasa</string>
+    <string name="item_favourite">Favorite</string>
+    <string name="text_overview">Descriere filme:</string>
+    <string name="text_release_date">Data lansarii:</string>
+    <string name="text_raiting">Raiting:</string>
+    <string name="text_title_original">Denumire originala:</string>
+    <string name="text_title">Denumire:</string>
+    <string name="description_poster">Poster</string>
+    <string name="description_add_or_del_favourite">Adauga / Sterge din favorite</string>
+    <string name="play_trailer">Porneste trailer</string>
+</resources>
