@@ -21,7 +21,6 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import com.example.mymovies.adapters.MovieAdapter;
 import com.example.mymovies.data.MainViewModel;
@@ -38,7 +37,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<JSONObject> {
     private RecyclerView recyclerViewPosters;
     private MovieAdapter movieAdapter;
-    private Switch switchSort;
+    private Switch aSwitch;
     private ProgressBar progressBarLoading;
     private List<Movie> movies;
     private static String lang;
@@ -80,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = (int) (displayMetrics.widthPixels / displayMetrics.density);
-        return Math.max(width / 185, 3);
+        return Math.max(width / 185, 4);
     }
 
     @Override
@@ -90,14 +89,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         lang = Locale.getDefault().getLanguage();
         loaderManager = LoaderManager.getInstance(this);
         progressBarLoading = findViewById(R.id.progressBarLoading);
-        switchSort = findViewById(R.id.switchSort);
+        aSwitch = findViewById(R.id.switchSort);
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         recyclerViewPosters = findViewById(R.id.recyclerViewPosters);
         recyclerViewPosters.setLayoutManager(new GridLayoutManager(this, getColumnCount()));
         movieAdapter = new MovieAdapter();
         recyclerViewPosters.setAdapter(movieAdapter);
-        switchSort.setChecked(true);
-        switchSort.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        aSwitch.setChecked(true);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 page = 0;
@@ -110,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             }
         });
-        switchSort.setChecked(false);
+        aSwitch.setChecked(false);
         movieAdapter.setOnPosterClickListener(new MovieAdapter.OnPosterClickListener() {
             @Override
             public void onPosterClick(int position) {
@@ -139,15 +138,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
     public void onClickSortByRated(View view) {
-        if (switchSort.isChecked()) {
-            switchSort.setChecked(false);
+        if (aSwitch.isChecked()) {
+            aSwitch.setChecked(false);
 
         }
     }
 
     public void onClickSortByPopularity(View view) {
-        if (!switchSort.isChecked()) {
-            switchSort.setChecked(true);
+        if (!aSwitch.isChecked()) {
+            aSwitch.setChecked(true);
         }
     }
 
@@ -176,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(@NonNull Loader<JSONObject> loader, JSONObject data) {
         movies = JSONUtils.getMoviesFromJSON(data);
-        if (movies != null && !movies.isEmpty()) {
+        if (!movies.isEmpty()) {
             if (page == 1) {
                 viewModel.deleteAllMovies();
                 movieAdapter.clear();
